@@ -9,11 +9,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: azure/docker-login@v1
-        with:
-          username: halftome
-          password: ${{ secrets.REGISTRY_PASSWORD }}
       - uses: crazy-max/ghaction-docker-buildx@v1.0.4
       - uses: actions/checkout@v1
-      - name: Build the Docker image
+      - name: Login to Docker
+        run: docker login -u halftome -p ${{ secrets.REGISTRY_PASSWORD }}
+      - name: Build and push the Docker images
         run: docker buildx build --platform linux/amd64,linux/arm64,linux/ppc64le,linux/s390x,linux/386,linux/arm/v7,linux/arm/v6 -t halftome/do-duc --push .
