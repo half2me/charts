@@ -13,5 +13,5 @@ CMD [ "sh", "-c", " \
     rip=`curl \"${IP4_URL}\"` && \
     url=\"${DO_API_BASE_URL}/domains/${DO_DOMAIN}/records/${DO_RECORD_ID}\" && \
     body=\"{\\\"data\\\": \\\"${rip}\\\"}\" && \
-    curl -v -X PUT -H \"Content-Type: application/json\" -H \"Authorization: Bearer ${DO_TOKEN}\" -d \"${body}\" \"${url}\" \
+    curl -v -X PUT -H \"Content-Type: application/json\" -H \"Authorization: Bearer ${DO_TOKEN}\" -d \"${body}\" \"${url}\" | grep domain_record \
 "]

@@ -7,7 +7,7 @@ fullnameOverride: ""
 
 cronjob:
   schedule: "@hourly"
-  jobRestartPolicy: Never
+  jobRestartPolicy: OnFailure
 
 ipCheck:
   ipv4Url: http://ip4.iurl.no
