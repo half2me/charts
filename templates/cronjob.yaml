@@ -5,18 +5,18 @@ metadata:
   labels:
 {{ include "..labels" . | indent 4 }}
 spec:
-  schedule: {{ .Values.cronjob.schedule }}
+  schedule: {{ .Values.cronjob.schedule | quote }}
   jobTemplate:
     spec:
       template:
         spec:
           containers:
-          - name: do-duc
+          - name: {{ .Chart.Name }}
             image: {{ .Values.image.repository }}
             imagePullPolicy: {{ .Values.image.pullPolicy }}
             envFrom:
             - configMapRef:
-              name: {{ template "..fullname" . }}
+                name: {{ template "..fullname" . }}
             - secretRef:
-              name: {{ template "..fullname" . }}
+                name: {{ template "..fullname" . }}
           restartPolicy: {{ .Values.cronjob.jobRestartPolicy }}
