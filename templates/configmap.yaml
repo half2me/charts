@@ -8,4 +8,4 @@ data:
   IP4_URL: {{ .Values.ipCheck.ipv4Url }}
   DO_API_BASE_URL:  {{ .Values.do.baseUrl }}
   DO_DOMAIN: {{ required "You must specify a domain" .Values.do.domain }}
-  DO_RECORD_ID: {{ required "You must specify a record id" .Values.do.recordId }}
+  DO_RECORD_ID: {{ required "You must specify a record id" .Values.do.recordId | quote }}
