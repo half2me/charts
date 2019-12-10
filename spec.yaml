@@ -1,0 +1,40 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: do-duc
+spec:
+  schedule: "@hourly"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: do-duc
+            image: halftome/do-duc
+            imagePullPolicy: Always
+            envFrom:
+            - configMapRef:
+              name: do-duc-config
+            - secretRef:
+              name: do-duc-secret
+          restartPolicy: Never
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: do-duc-config
+data:
+  IP4_URL: http://ip4.iurl.no
+  DO_API_BASE_URL: https://api.digitalocean.com/v2
+  DO_DOMAIN: {{ domain }}
+  DO_RECORD_ID: {{ record }}
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: do-duc-secret
+type: Opaque
+stringData:
+  DO_TOKEN: {{ token }}
