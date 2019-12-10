@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "..fullname" . }}
+  labels:
+{{ include "..labels" . | indent 4 }}
+data:
+  IP4_URL: {{ .Values.ipCheck.ipv4Url }}
+  DO_API_BASE_URL:  {{ .Values.do.baseUrl }}
+  DO_DOMAIN: {{ .Values.do.domain }}
+  DO_RECORD_ID: {{ .Values.do.recordId }}

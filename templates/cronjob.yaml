@@ -1,0 +1,22 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: {{ template "..fullname" . }}
+  labels:
+{{ include "..labels" . | indent 4 }}
+spec:
+  schedule: {{ .Values.cronjob.schedule }}
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: do-duc
+            image: {{ .Values.image.repository }}
+            imagePullPolicy: {{ .Values.image.pullPolicy }}
+            envFrom:
+            - configMapRef:
+              name: {{ template "..fullname" . }}
+            - secretRef:
+              name: {{ template "..fullname" . }}
+          restartPolicy: {{ .Values.cronjob.jobRestartPolicy }}

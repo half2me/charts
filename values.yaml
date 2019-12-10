@@ -1,0 +1,27 @@
+image:
+  repository: halftome/do-duc
+  pullPolicy: Always
+
+nameOverride: ""
+fullnameOverride: ""
+
+cronjob:
+  schedule: @hourly
+  jobRestartPolicy: Never
+
+ipCheck:
+  ipv4Url: http://ip4.iurl.no
+
+do:
+  baseUrl: https://api.digitalocean.com/
+  domain:
+  recordId:
+  token:
+
+resources: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
