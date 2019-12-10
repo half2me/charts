@@ -6,7 +6,7 @@ nameOverride: ""
 fullnameOverride: ""
 
 cronjob:
-  schedule: @hourly
+  schedule: "@hourly"
   jobRestartPolicy: Never
 
 ipCheck:
