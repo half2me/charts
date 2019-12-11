@@ -15,7 +15,7 @@ ipCheck:
   ipv4Url: http://ip4.iurl.no
 
 do:
-  baseUrl: https://api.digitalocean.com
+  baseUrl: https://api.digitalocean.com/v2
   domain:
   recordId:
   token:

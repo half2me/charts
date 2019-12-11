@@ -16,8 +16,10 @@ spec:
             imagePullPolicy: {{ .Values.image.pullPolicy }}
             env:
             {{- if .Values.proxy }}
-              http_proxy: {{ .Values.proxy | quote }}
-              https_proxy: {{ .Values.proxy | quote }}
+            - name: http_proxy
+              value: {{ .Values.proxy | quote }}
+            - name: https_proxy
+              value: {{ .Values.proxy | quote }}
             {{- end }}
             envFrom:
             - configMapRef:
