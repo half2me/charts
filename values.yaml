@@ -5,6 +5,8 @@ image:
 nameOverride: ""
 fullnameOverride: ""
 
+proxy:
+
 cronjob:
   schedule: "@hourly"
   jobRestartPolicy: Never

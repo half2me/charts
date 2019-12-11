@@ -1,7 +1,7 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: {{ template "..fullname" . }}
+  name: {{ .Release.Name }}
   labels:
 {{ include "..labels" . | indent 4 }}
 spec:
@@ -14,9 +14,14 @@ spec:
           - name: {{ .Chart.Name }}
             image: {{ .Values.image.repository }}
             imagePullPolicy: {{ .Values.image.pullPolicy }}
+            env:
+            {{- if .Values.proxy }}
+              http_proxy: {{ .Values.proxy | quote }}
+              https_proxy: {{ .Values.proxy | quote }}
+            {{- end }}
             envFrom:
             - configMapRef:
-                name: {{ template "..fullname" . }}
+                name: {{ .Release.Name }}-configmap
             - secretRef:
-                name: {{ template "..fullname" . }}
+                name: {{ .Release.Name }}-secret
           restartPolicy: {{ .Values.cronjob.jobRestartPolicy }}

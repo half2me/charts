@@ -1,11 +1,12 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ template "..fullname" . }}
+  name: {{ .Release.Name }}-configmap
   labels:
 {{ include "..labels" . | indent 4 }}
 data:
-  IP4_URL: {{ .Values.ipCheck.ipv4Url }}
-  DO_API_BASE_URL:  {{ .Values.do.baseUrl }}
-  DO_DOMAIN: {{ required "You must specify a domain" .Values.do.domain }}
+  IP4_URL: {{ .Values.ipCheck.ipv4Url | quote }}
+  DO_API_BASE_URL:  {{ .Values.do.baseUrl | quote }}
+  DO_DOMAIN: {{ required "You must specify a domain" .Values.do.domain | quote }}
   DO_RECORD_ID: {{ required "You must specify a record id" .Values.do.recordId | quote }}
+  http_proxy: {{ .Values.do | quote }}
