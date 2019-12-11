@@ -1,0 +1,13 @@
+apiVersion: v1
+entries:
+  do-duc:
+  - apiVersion: v1
+    appVersion: 1.0git
+    created: "2019-12-11T16:53:11.160639514Z"
+    description: A Helm chart for Digital Ocean Dynamic DNS Update Client
+    digest: 4733bd8263180ab3dbd075e86e890378d94e84bffd9b3924e93685f6e6fc4c12
+    name: do-duc
+    urls:
+    - https://github.com/half2me/do-duc/releases/download/do-duc-0.2.3/do-duc-0.2.3.tgz
+    version: 0.2.3
+generated: "2019-12-11T16:53:11.018870275Z"
