@@ -9,4 +9,3 @@ data:
   DO_API_BASE_URL:  {{ .Values.do.baseUrl | quote }}
   DO_DOMAIN: {{ required "You must specify a domain" .Values.do.domain | quote }}
   DO_RECORD_ID: {{ required "You must specify a record id" .Values.do.recordId | quote }}
-  http_proxy: {{ .Values.do | quote }}
