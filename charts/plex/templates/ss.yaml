@@ -5,8 +5,6 @@ metadata:
   labels:
     {{- include "plex.labels" . | nindent 4 }}
 spec:
-  strategy:
-    type: Recreate
   selector:
     matchLabels:
       {{- include "plex.selectorLabels" . | nindent 6 }}
@@ -34,14 +32,14 @@ spec:
             timeoutSeconds: 5
           envFrom:
             - secretRef:
-              name: {{ include "plex.fullname" . }}
+                name: {{ include "plex.fullname" . }}
             - configMapRef:
-              name: {{ include "plex.fullname" . }}
+                name: {{ include "plex.fullname" . }}
           volumeMounts:
             - mountPath: /config
               name: {{ include "plex.fullname" . }}-config
             - mountPath: /data
-              name: {{ .Values.pv | quote }}
+              name: {{ include "plex.fullname" . }}-data
   volumeClaimTemplates:
     - metadata:
         name: {{ include "plex.fullname" . }}-config
@@ -52,3 +50,15 @@ spec:
         resources:
           requests:
             storage: {{ .Values.db.size | quote }}
+    - metadata:
+        name: {{ include "plex.fullname" . }}-data
+        labels:
+          {{- include "plex.labels" . | nindent 10 }}
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: {{ .Values.db.size | quote }}
+        selector:
+          matchLabels:
+            type: plex-data
