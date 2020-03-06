@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "plex.fullname" . }}
+  labels:
+    {{- include "plex.labels" . | nindent 4 }}
+spec:
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      {{- include "plex.selectorLabels" . | nindent 6 }}
+  serviceName: {{ include "plex.fullname" . }}
+  template:
+    metadata:
+      labels:
+        {{- include "plex.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          livenessProbe:
+            httpGet:
+              path: /identity
+              port: 32400
+            initialDelaySeconds: 10
+            timeoutSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /identity
+              port: 32400
+            initialDelaySeconds: 15
+            timeoutSeconds: 5
+          envFrom:
+            - secretRef:
+              name: {{ include "plex.fullname" . }}
+            - configMapRef:
+              name: {{ include "plex.fullname" . }}
+          volumeMounts:
+            - mountPath: /config
+              name: {{ include "plex.fullname" . }}-config
+            - mountPath: /data
+              name: {{ .Values.pv | quote }}
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ include "plex.fullname" . }}-config
+        labels:
+          {{- include "plex.labels" . | nindent 10 }}
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: {{ .Values.db.size | quote }}

@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "plex.fullname" . }}
+  labels:
+    {{- include "plex.labels" . | nindent 4 }}
+spec:
+  type: LoadBalancer
+  ports:
+    - name: http
+      port: 32400
+      protocol: TCP
+    - name: dlna1
+      port: 1900
+      protocol: UDP
+    - name: companion
+      port: 3005
+      protocol: TCP
+    - name: avahi
+      port: 5353
+      protocol: UDP
+    - name: roku
+      port: 8324
+      protocol: TCP
+    - name: gdm1
+      port: 32410
+      protocol: UDP
+    - name: gdm2
+      port: 32412
+      protocol: UDP
+    - name: gdm3
+      port: 32413
+      protocol: UDP
+    - name: gdm4
+      port: 32414
+      protocol: UDP
+    - name: dlna2
+      port: 32469
+      protocol: TCP
+  selector:
+    {{- include "plex.selectorLabels" . | nindent 4 }}
