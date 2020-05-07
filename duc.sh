@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/sh
 
 system_ip=`curl ${IP4_URL}`
 echo "System IP: $system_ip"
