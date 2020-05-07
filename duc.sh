@@ -39,9 +39,9 @@ if [ $? = 0 ]; then
     return 0
 else
     echo "Record is outdated!"
-    if [ $1 = "update" ]; then
+    if [ "$1" = "update" ]; then
         UpdateRecord
-    elif [ $1 = "verify" ]; then
+    elif [ "$1" = "verify" ]; then
         exit 1
     fi
 fi
