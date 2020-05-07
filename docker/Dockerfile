@@ -1,7 +1,7 @@
 FROM alpine:latest
 
 RUN apk add --no-cache curl jq
-ADD duc.sh .
+ADD duc.sh /bin/duc.sh
 
 ENV IP4_URL http://ip4.iurl.no
 ENV DO_API_BASE_URL https://api.digitalocean.com/v2
