@@ -1,0 +1,27 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "{{ .Release.Name }}-test"
+  annotations:
+    "helm.sh/hook": test
+spec:
+  template:
+    spec:
+      containers:
+      - name: "{{ .Chart.Name }}-test"
+        image: {{ .Values.image.repository }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        env:
+        {{- if .Values.proxy }}
+        - name: http_proxy
+          value: {{ .Values.proxy | quote }}
+        - name: https_proxy
+          value: {{ .Values.proxy | quote }}
+        {{- end }}
+        envFrom:
+        - configMapRef:
+            name: {{ .Release.Name }}-configmap
+        - secretRef:
+            name: {{ .Release.Name }}-secret
+        command: ["duc.sh"]
+      restartPolicy: {{ .Values.cronjob.jobRestartPolicy }}
