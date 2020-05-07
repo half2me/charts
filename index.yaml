@@ -3,6 +3,16 @@ entries:
   do-duc:
   - apiVersion: v1
     appVersion: "1"
+    created: "2020-05-07T16:44:00.88535322Z"
+    description: A Helm chart for Digital Ocean Dynamic DNS Update Client
+    digest: ed5f7fa04a7edf2ac7d921e2e325c62ad52549899e04fe9686ae36cee7fbed12
+    name: do-duc
+    type: application
+    urls:
+    - https://github.com/half2me/charts/releases/download/do-duc-0.2.6/do-duc-0.2.6.tgz
+    version: 0.2.6
+  - apiVersion: v1
+    appVersion: "1"
     created: "2019-12-12T10:31:24.557657419Z"
     description: A Helm chart for Digital Ocean Dynamic DNS Update Client
     digest: 4eb6597fdca83685934058ca2291b455b55f94a323c00238329338ecfff41f0e
@@ -28,4 +38,15 @@ entries:
     urls:
     - https://github.com/half2me/do-duc/releases/download/do-duc-0.2.3/do-duc-0.2.3.tgz
     version: 0.2.3
+  plex:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2020-05-07T16:44:00.949338414Z"
+    description: A Helm chart for Plex Media Server
+    digest: 9b820b887a29b74cf7946e19b35adeb0885a99a3fa8d32ffba7b45142abbc09a
+    name: plex
+    type: application
+    urls:
+    - https://github.com/half2me/charts/releases/download/plex-0.1.0/plex-0.1.0.tgz
+    version: 0.1.0
 generated: "2019-12-11T16:53:11.018870275Z"
