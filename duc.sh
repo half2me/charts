@@ -25,11 +25,13 @@ CheckRecord () {
 }
 
 UpdateRecord () {
+    echo "updating..."
     new_ip=`curl -s -X PUT -H "Content-Type: application/json" -H "Authorization: Bearer ${DO_TOKEN}" -d "{\"data\": \"${system_ip}\"}" ${url} | jq -r ".domain_record.data"`
     if [ $new_ip != $system_ip ]; then
         echo "Record update failed"
         exit 3
     fi
+    echo "update successful!";
 }
 
 CheckRecord
