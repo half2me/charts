@@ -9,12 +9,12 @@ CheckRecord () {
     # Get record IP
     record_ip=`curl -s -X GET -H "Content-Type: application/json" -H "Authorization: Bearer ${DO_TOKEN}" ${url} | jq -r ".domain_record.data"`
 
-    if [ $record_ip == "null" ]; then
+    if [ $record_ip = "null" ]; then
         echo "Error: The record doesn't hold a valid IP!"
         exit 2
     else
         echo "Record IP: $record_ip"
-        if [ $record_ip == $system_ip ]; then
+        if [ $record_ip = $system_ip ]; then
             # record is up to date
             return 0
         else
@@ -34,14 +34,14 @@ UpdateRecord () {
 
 CheckRecord
 
-if [ $? == 0 ]; then
+if [ $? = 0 ]; then
     echo "Record is already up to date!"
     return 0
 else
     echo "Record is outdated!"
-    if [ $1 == "update" ]; then
+    if [ $1 = "update" ]; then
         UpdateRecord
-    elif [ $1 == "verify" ]; then
+    elif [ $1 = "verify" ]; then
         exit 1
     fi
 fi
