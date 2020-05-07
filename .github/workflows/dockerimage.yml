@@ -9,8 +9,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: crazy-max/ghaction-docker-buildx@v1.0.5
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
+      - uses: crazy-max/ghaction-docker-buildx@v1.6.0
       - name: Login to Docker
         run: docker login -u halftome -p ${{ secrets.REGISTRY_PASSWORD }}
       - name: Build and push the Docker images
