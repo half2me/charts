@@ -24,4 +24,4 @@ spec:
         - secretRef:
             name: {{ .Release.Name }}-secret
         command: ["duc.sh"]
-      restartPolicy: {{ .Values.cronjob.jobRestartPolicy }}
+      restartPolicy: Never
