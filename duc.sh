@@ -4,7 +4,7 @@ ip_regex='^(?:(?:\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.){3}(?:\d|[1-9]\d|1\d\d|2[0
 system_ip=`curl -s ${IP4_URL}`
 
 # check if system_ip is valid
-echo "$system_ip" | egrep "$ip_regex"
+echo "$system_ip" | grep -E "$ip_regex"
 
 if [ $? != 0 ]; then
     echo "Invalid IP address received"
