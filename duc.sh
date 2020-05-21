@@ -1,6 +1,16 @@
 #!/bin/sh
 
+ip_regex='^(?:(?:\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.){3}(?:\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])$'
 system_ip=`curl -s ${IP4_URL}`
+
+# check if system_ip is valid
+echo "$system_ip" | egrep "$ip_regex"
+
+if [ $? != 0 ]; then
+    echo "Invalid IP address received"
+    exit 5
+fi
+
 echo "System IP: $system_ip"
 
 url="${DO_API_BASE_URL}/domains/${DO_DOMAIN}/records/${DO_RECORD_ID}"
