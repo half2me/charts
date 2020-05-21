@@ -1,13 +1,10 @@
 #!/bin/sh
 
-ip_regex='^(?:(?:\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.){3}(?:\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])$'
-system_ip=`curl -s ${IP4_URL}`
+system_ip=`curl -s "${IP4_URL}" | grep -E '^(\d{1,3}\.){3}\d{1,3}$'`
 
 # check if system_ip is valid
-echo "$system_ip" | grep -E "$ip_regex"
-
-if [ $? != 0 ]; then
-    echo "Invalid IP address received"
+if [ "$system_ip" = "" ]; then
+    echo "Got an invalid IP address."
     exit 5
 fi
 
@@ -19,12 +16,12 @@ CheckRecord () {
     # Get record IP
     record_ip=`curl -s -X GET -H "Content-Type: application/json" -H "Authorization: Bearer ${DO_TOKEN}" ${url} | jq -r ".domain_record.data"`
 
-    if [ $record_ip = "null" ]; then
+    if [ "$record_ip" = "null" ]; then
         echo "Error: The record doesn't hold a valid IP!"
         exit 2
     else
         echo "Record IP: $record_ip"
-        if [ $record_ip = $system_ip ]; then
+        if [ "$record_ip" = "$system_ip" ]; then
             # record is up to date
             return 0
         else
@@ -37,7 +34,7 @@ CheckRecord () {
 UpdateRecord () {
     echo "updating..."
     new_ip=`curl -s -X PUT -H "Content-Type: application/json" -H "Authorization: Bearer ${DO_TOKEN}" -d "{\"data\": \"${system_ip}\"}" ${url} | jq -r ".domain_record.data"`
-    if [ $new_ip != $system_ip ]; then
+    if [ "$new_ip" != "$system_ip" ]; then
         echo "Record update failed"
         exit 3
     fi
