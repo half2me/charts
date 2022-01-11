@@ -10,7 +10,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: docker/setup-buildx-action@v1
+      - id: buildx
+        uses: docker/setup-buildx-action@v1
       - run: docker login -u halftome -p ${{ secrets.REGISTRY_PASSWORD }}
       - name: Inspect builder
         run: |
